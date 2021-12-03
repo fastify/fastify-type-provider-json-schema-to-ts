@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/fastify/fastify-type-provider-json-schema-to-ts#readme",
   "dependencies": {
-    "fastify": "github:fastify/fastify#next",
     "json-schema-to-ts": "^1.6.4"
   },
   "peerDependencies": {
