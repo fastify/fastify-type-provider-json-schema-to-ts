@@ -26,8 +26,7 @@ jobs:
 
       - name: Install PeerDeps
         run: |
-          npm i fastify/fastify#next
-          npm i json-schema-to-ts
+          npm i fastify json-schema-to-ts
 
       - name: Run tests
         run: |
