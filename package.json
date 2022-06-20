@@ -31,7 +31,7 @@
     "directory": "types"
   },
   "devDependencies": {
-    "@types/node": "^17.0.41",
+    "@types/node": "^18.0.0",
     "fastify-tsconfig": "^1.0.1",
     "rimraf": "^3.0.2",
     "tsd": "^0.21.0"
