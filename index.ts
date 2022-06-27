@@ -1,7 +1,7 @@
 import { FastifyTypeProvider } from 'fastify'
 
-import { JSONSchema, FromSchema } from 'json-schema-to-ts'
+import { JSONSchema7, FromSchema  } from 'json-schema-to-ts'
 
 export interface JsonSchemaToTsProvider extends FastifyTypeProvider {
-  output: this['input'] extends JSONSchema ? FromSchema<this['input']> : never
+  output: this['input'] extends JSONSchema7 ? FromSchema<this['input']> : never
 }
