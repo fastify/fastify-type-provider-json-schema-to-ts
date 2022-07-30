@@ -14,13 +14,13 @@ export interface JsonSchemaToTsProvider extends FastifyTypeProvider {
 }
 
 /**
- * FastifyPluginCallback with Typebox automatic type inference
+ * FastifyPluginCallback with JSON Schema to Typescript automatic type inference
  *
  * @example
  * ```typescript
- * import { FastifyPluginCallbackTypebox } fromg "@fastify/type-provider-typebox"
+ * import { FastifyPluginCallbackJStT } from "@fastify/type-provider-json-schema-to-ts"
  *
- * const plugin: FastifyPluginCallbackTypebox = (fastify, options, done) => {
+ * const plugin: FastifyPluginCallbackJStT = (fastify, options, done) => {
  *   done()
  * }
  * ```
@@ -31,13 +31,13 @@ export type FastifyPluginCallbackJStT<
 > = FastifyPluginCallback<Options, Server, JsonSchemaToTsProvider>;
 
 /**
- * FastifyPluginAsync with Typebox automatic type inference
+ * FastifyPluginAsync with JSON Schema to Typescript automatic type inference
  *
  * @example
  * ```typescript
- * import { FastifyPluginAsyncTypebox } fromg "@fastify/type-provider-typebox"
+ * import { FastifyPluginAsyncJStT } fromg "@fastify/type-provider-json-schema-to-ts"
  *
- * const plugin: FastifyPluginAsyncTypebox = async (fastify, options) => {
+ * const plugin: FastifyPluginAsyncJStT = async (fastify, options) => {
  * }
  * ```
  */

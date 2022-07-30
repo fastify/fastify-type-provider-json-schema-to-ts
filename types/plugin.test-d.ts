@@ -10,11 +10,11 @@ export const pluginAsyncDefaults: FastifyPluginAsync = async (
   options
 ) => {
   const pluginAsyncJStTDefaults: FastifyPluginAsyncJStT = async (
-    fastifyWithJstT,
-    optionsTypebox
+    fastifyWithJStT,
+    optionsJStT
   ) => {
-    expectType<typeof fastifyWithJstT["server"]>(fastify.server);
-    expectType<typeof optionsTypebox>(options);
+    expectType<typeof fastifyWithJStT["server"]>(fastify.server);
+    expectType<typeof optionsJStT>(options);
   };
   fastify.register(pluginAsyncJStTDefaults);
 };
@@ -26,12 +26,12 @@ export const pluginCallbackDefaults: FastifyPluginCallback = async (
   done
 ) => {
   const pluginCallbackJStTDefaults: FastifyPluginCallbackJStT = async (
-    fastifyWithJstT,
-    optionsTypebox,
-    doneTypebox
+    fastifyWithJStT,
+    optionsJStT,
+    doneJStT
   ) => {
-    expectType<typeof fastifyWithJstT["server"]>(fastify.server);
-    expectType<typeof optionsTypebox>(options);
+    expectType<typeof fastifyWithJStT["server"]>(fastify.server);
+    expectType<typeof optionsJStT>(options);
   };
 
   fastify.register(pluginCallbackJStTDefaults);
