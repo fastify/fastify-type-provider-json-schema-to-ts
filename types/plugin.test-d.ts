@@ -12,14 +12,12 @@ export const pluginAsyncDefaults: FastifyPluginAsync = async (
   fastify,
   options
 ) => {
-  const pluginAsyncJStTDefaults: FastifyPluginAsyncJsonSchemaToTs = async (
-    fastifyWithJSONSchemaToTs,
-    optionsJSONSchemaToTs
-  ) => {
-    expectType<typeof fastifyWithJSONSchemaToTs["server"]>(fastify.server);
-    expectType<typeof optionsJSONSchemaToTs>(options);
-  };
-  fastify.register(pluginAsyncJStTDefaults);
+  const pluginAsyncJSONSchemaToTsDefaults: FastifyPluginAsyncJsonSchemaToTs =
+    async (fastifyWithJSONSchemaToTs, optionsJSONSchemaToTs) => {
+      expectType<typeof fastifyWithJSONSchemaToTs["server"]>(fastify.server);
+      expectType<typeof optionsJSONSchemaToTs>(options);
+    };
+  fastify.register(pluginAsyncJSONSchemaToTsDefaults);
 };
 
 // Ensure the defaults of FastifyPluginCallbackJsonSchemaToTs are the same as FastifyPluginCallback
@@ -28,13 +26,17 @@ export const pluginCallbackDefaults: FastifyPluginCallback = async (
   options,
   done
 ) => {
-  const pluginCallbackJStTDefaults: FastifyPluginCallbackJsonSchemaToTs =
-    async (fastifyWithJSONSchemaToTs, optionsJSONSchemaToTs, doneJStT) => {
+  const pluginCallbackJSONSchemaToTsDefaults: FastifyPluginCallbackJsonSchemaToTs =
+    async (
+      fastifyWithJSONSchemaToTs,
+      optionsJSONSchemaToTs,
+      doneJSONSchemaToTs
+    ) => {
       expectType<typeof fastifyWithJSONSchemaToTs["server"]>(fastify.server);
       expectType<typeof optionsJSONSchemaToTs>(options);
     };
 
-  fastify.register(pluginCallbackJStTDefaults);
+  fastify.register(pluginCallbackJSONSchemaToTsDefaults);
 };
 
 const asyncPlugin: FastifyPluginAsyncJsonSchemaToTs<
