@@ -18,14 +18,14 @@ export interface JsonSchemaToTsProvider extends FastifyTypeProvider {
  *
  * @example
  * ```typescript
- * import { FastifyPluginCallbackJStT } from "@fastify/type-provider-json-schema-to-ts"
+ * import { FastifyPluginCallbackJsonSchemaToTs } from "@fastify/type-provider-json-schema-to-ts"
  *
- * const plugin: FastifyPluginCallbackJStT = (fastify, options, done) => {
+ * const plugin: FastifyPluginCallbackJsonSchemaToTs = (fastify, options, done) => {
  *   done()
  * }
  * ```
  */
-export type FastifyPluginCallbackJStT<
+export type FastifyPluginCallbackJsonSchemaToTs<
   Options extends FastifyPluginOptions = Record<never, never>,
   Server extends RawServerBase = RawServerDefault
 > = FastifyPluginCallback<Options, Server, JsonSchemaToTsProvider>;
@@ -41,7 +41,7 @@ export type FastifyPluginCallbackJStT<
  * }
  * ```
  */
-export type FastifyPluginAsyncJStT<
+export type FastifyPluginAsyncJsonSchemaToTs<
   Options extends FastifyPluginOptions = Record<never, never>,
   Server extends RawServerBase = RawServerDefault
 > = FastifyPluginAsync<Options, Server, JsonSchemaToTsProvider>;

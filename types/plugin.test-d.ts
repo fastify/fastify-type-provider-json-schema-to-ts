@@ -1,43 +1,43 @@
-import { FastifyPluginAsyncJStT, FastifyPluginCallbackJStT } from "../index";
+import {
+  FastifyPluginAsyncJsonSchemaToTs,
+  FastifyPluginCallbackJsonSchemaToTs,
+} from "../index";
 import { expectType } from "tsd";
 import Fastify, { FastifyPluginAsync, FastifyPluginCallback } from "fastify";
 
 import { Http2Server } from "http2";
 
-// Ensure the defaults of FastifyPluginAsyncJStT are the same as FastifyPluginAsync
+// Ensure the defaults of FastifyPluginAsyncJsonSchemaToTs are the same as FastifyPluginAsync
 export const pluginAsyncDefaults: FastifyPluginAsync = async (
   fastify,
   options
 ) => {
-  const pluginAsyncJStTDefaults: FastifyPluginAsyncJStT = async (
-    fastifyWithJStT,
-    optionsJStT
+  const pluginAsyncJStTDefaults: FastifyPluginAsyncJsonSchemaToTs = async (
+    fastifyWithJSONSchemaToTs,
+    optionsJSONSchemaToTs
   ) => {
-    expectType<typeof fastifyWithJStT["server"]>(fastify.server);
-    expectType<typeof optionsJStT>(options);
+    expectType<typeof fastifyWithJSONSchemaToTs["server"]>(fastify.server);
+    expectType<typeof optionsJSONSchemaToTs>(options);
   };
   fastify.register(pluginAsyncJStTDefaults);
 };
 
-// Ensure the defaults of FastifyPluginCallbackJStT are the same as FastifyPluginCallback
+// Ensure the defaults of FastifyPluginCallbackJsonSchemaToTs are the same as FastifyPluginCallback
 export const pluginCallbackDefaults: FastifyPluginCallback = async (
   fastify,
   options,
   done
 ) => {
-  const pluginCallbackJStTDefaults: FastifyPluginCallbackJStT = async (
-    fastifyWithJStT,
-    optionsJStT,
-    doneJStT
-  ) => {
-    expectType<typeof fastifyWithJStT["server"]>(fastify.server);
-    expectType<typeof optionsJStT>(options);
-  };
+  const pluginCallbackJStTDefaults: FastifyPluginCallbackJsonSchemaToTs =
+    async (fastifyWithJSONSchemaToTs, optionsJSONSchemaToTs, doneJStT) => {
+      expectType<typeof fastifyWithJSONSchemaToTs["server"]>(fastify.server);
+      expectType<typeof optionsJSONSchemaToTs>(options);
+    };
 
   fastify.register(pluginCallbackJStTDefaults);
 };
 
-const asyncPlugin: FastifyPluginAsyncJStT<
+const asyncPlugin: FastifyPluginAsyncJsonSchemaToTs<
   { optionA: string },
   Http2Server
 > = async (fastify, options) => {
@@ -68,7 +68,7 @@ const asyncPlugin: FastifyPluginAsyncJStT<
   );
 };
 
-const callbackPlugin: FastifyPluginCallbackJStT<
+const callbackPlugin: FastifyPluginCallbackJsonSchemaToTs<
   { optionA: string },
   Http2Server
 > = (fastify, options, done) => {
