@@ -8,7 +8,10 @@ A Type Provider for json-schema-to-ts
 > When using plugin types, withTypeProvider is not required in order to register the plugin
 
 ```ts
-const plugin: FastifyPluginAsyncJStT = async function (fastify, _opts) {
+const plugin: FastifyPluginAsyncJsonSchemaToTs = async function (
+  fastify,
+  _opts
+) {
   fastify.get(
     "/",
     {
