@@ -35,9 +35,9 @@ export type FastifyPluginCallbackJsonSchemaToTs<
  *
  * @example
  * ```typescript
- * import { FastifyPluginAsyncJStT } fromg "@fastify/type-provider-json-schema-to-ts"
+ * import { FastifyPluginAsyncJsonSchemaToTs } fromg "@fastify/type-provider-json-schema-to-ts"
  *
- * const plugin: FastifyPluginAsyncJStT = async (fastify, options) => {
+ * const plugin: FastifyPluginAsyncJsonSchemaToTs = async (fastify, options) => {
  * }
  * ```
  */
