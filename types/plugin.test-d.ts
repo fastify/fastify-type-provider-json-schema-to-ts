@@ -1,11 +1,11 @@
 import {
   FastifyPluginAsyncJsonSchemaToTs,
-  FastifyPluginCallbackJsonSchemaToTs,
-} from "../index";
-import { expectType } from "tsd";
-import Fastify, { FastifyPluginAsync, FastifyPluginCallback } from "fastify";
+  FastifyPluginCallbackJsonSchemaToTs
+} from '../index'
+import { expectType } from 'tsd'
+import Fastify, { FastifyPluginAsync, FastifyPluginCallback } from 'fastify'
 
-import { Http2Server } from "http2";
+import { Http2Server } from 'http2'
 
 // Ensure the defaults of FastifyPluginAsyncJsonSchemaToTs are the same as FastifyPluginAsync
 export const pluginAsyncDefaults: FastifyPluginAsync = async (
@@ -14,11 +14,11 @@ export const pluginAsyncDefaults: FastifyPluginAsync = async (
 ) => {
   const pluginAsyncJSONSchemaToTsDefaults: FastifyPluginAsyncJsonSchemaToTs =
     async (fastifyWithJSONSchemaToTs, optionsJSONSchemaToTs) => {
-      expectType<typeof fastifyWithJSONSchemaToTs["server"]>(fastify.server);
-      expectType<typeof optionsJSONSchemaToTs>(options);
-    };
-  fastify.register(pluginAsyncJSONSchemaToTsDefaults);
-};
+      expectType<typeof fastifyWithJSONSchemaToTs['server']>(fastify.server)
+      expectType<typeof optionsJSONSchemaToTs>(options)
+    }
+  fastify.register(pluginAsyncJSONSchemaToTsDefaults)
+}
 
 // Ensure the defaults of FastifyPluginCallbackJsonSchemaToTs are the same as FastifyPluginCallback
 export const pluginCallbackDefaults: FastifyPluginCallback = async (
@@ -32,77 +32,77 @@ export const pluginCallbackDefaults: FastifyPluginCallback = async (
       optionsJSONSchemaToTs,
       doneJSONSchemaToTs
     ) => {
-      expectType<typeof fastifyWithJSONSchemaToTs["server"]>(fastify.server);
-      expectType<typeof optionsJSONSchemaToTs>(options);
-    };
+      expectType<typeof fastifyWithJSONSchemaToTs['server']>(fastify.server)
+      expectType<typeof optionsJSONSchemaToTs>(options)
+    }
 
-  fastify.register(pluginCallbackJSONSchemaToTsDefaults);
-};
+  fastify.register(pluginCallbackJSONSchemaToTsDefaults)
+}
 
 const asyncPlugin: FastifyPluginAsyncJsonSchemaToTs<
   { optionA: string },
   Http2Server
 > = async (fastify, options) => {
-  expectType<Http2Server>(fastify.server);
+  expectType<Http2Server>(fastify.server)
 
-  expectType<string>(options.optionA);
+  expectType<string>(options.optionA)
 
   fastify.get(
-    "/",
+    '/',
     {
       schema: {
         body: {
-          type: "object",
+          type: 'object',
           properties: {
-            x: { type: "string" },
-            y: { type: "number" },
-            z: { type: "boolean" },
+            x: { type: 'string' },
+            y: { type: 'number' },
+            z: { type: 'boolean' }
           },
-          required: ["x", "y", "z"],
-        } as const,
-      },
+          required: ['x', 'y', 'z']
+        } as const
+      }
     },
     (req) => {
-      expectType<boolean>(req.body.z);
-      expectType<number>(req.body.y);
-      expectType<string>(req.body.x);
+      expectType<boolean>(req.body.z)
+      expectType<number>(req.body.y)
+      expectType<string>(req.body.x)
     }
-  );
-};
+  )
+}
 
 const callbackPlugin: FastifyPluginCallbackJsonSchemaToTs<
   { optionA: string },
   Http2Server
 > = (fastify, options, done) => {
-  expectType<Http2Server>(fastify.server);
+  expectType<Http2Server>(fastify.server)
 
-  expectType<string>(options.optionA);
+  expectType<string>(options.optionA)
 
   fastify.get(
-    "/",
+    '/',
     {
       schema: {
         body: {
-          type: "object",
+          type: 'object',
           properties: {
-            x: { type: "string" },
-            y: { type: "number" },
-            z: { type: "boolean" },
+            x: { type: 'string' },
+            y: { type: 'number' },
+            z: { type: 'boolean' }
           },
-          required: ["x", "y", "z"],
-        } as const,
-      },
+          required: ['x', 'y', 'z']
+        } as const
+      }
     },
     (req) => {
-      expectType<boolean>(req.body.z);
-      expectType<number>(req.body.y);
-      expectType<string>(req.body.x);
+      expectType<boolean>(req.body.z)
+      expectType<number>(req.body.y)
+      expectType<string>(req.body.x)
     }
-  );
-  done();
-};
+  )
+  done()
+}
 
-const fastify = Fastify();
+const fastify = Fastify()
 
-fastify.register(asyncPlugin);
-fastify.register(callbackPlugin);
+fastify.register(asyncPlugin)
+fastify.register(callbackPlugin)

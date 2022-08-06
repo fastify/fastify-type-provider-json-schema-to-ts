@@ -28,6 +28,10 @@ jobs:
         run: |
           npm i fastify json-schema-to-ts
 
+      - name: Run lint
+        run: |
+          npm run lint
+
       - name: Run tests
         run: |
           npm run test
