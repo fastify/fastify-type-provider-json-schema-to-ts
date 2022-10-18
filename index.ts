@@ -10,7 +10,7 @@ import {
 import { JSONSchema7, FromSchema, FromSchemaOptions, FromSchemaDefaultOptions } from 'json-schema-to-ts'
 
 export interface JsonSchemaToTsProvider<Options extends FromSchemaOptions = FromSchemaDefaultOptions> extends FastifyTypeProvider {
-  output: this['input'] extends JSONSchema7 ? FromSchema<this['input'], Options> : never;
+  output: this['input'] extends JSONSchema7 ? FromSchema<this['input'], Options> : unknown;
 }
 
 /**
