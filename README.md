@@ -37,7 +37,7 @@ const plugin: FastifyPluginAsyncJsonSchemaToTs = async function (
 
 ## Using References from a Shared Schema
 
-JsonSchemaToTsProvider takes a generic that can be passed in the Shared Schema used
+JsonSchemaToTsProvider takes a generic that can be passed in the Shared Schema
 as shown in the following example
 
 ```ts
