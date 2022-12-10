@@ -77,6 +77,7 @@ fastify.get(
             $ref: "shared-schema#/definitions/user",
           },
         },
+        required: ['user'],
       },
     } as const,
   },
