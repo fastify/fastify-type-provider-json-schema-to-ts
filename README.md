@@ -34,3 +34,56 @@ const plugin: FastifyPluginAsyncJsonSchemaToTs = async function (
   );
 };
 ```
+
+## Using References from a Shared Schema
+
+JsonSchemaToTsProvider takes a generic that can be passed in the Shared Schema
+as shown in the following example
+
+```ts
+const userSchema = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    givenName: { type: "string" },
+    familyName: { type: "string" },
+  },
+  required: ["givenName", "familyName"],
+} as const;
+
+const sharedSchema = {
+  $id: "shared-schema",
+  definitions: {
+    user: userSchema,
+  },
+} as const;
+
+// then when using JsonSchemaToTsProvider, the shared schema is passed through the generic
+// references takes an array so can pass in multiple shared schema
+const fastify =
+  Fastify().withTypeProvider<
+    JsonSchemaToTsProvider<{ references: [typeof sharedSchema] }>
+  >();
+
+// now reference the shared schema like the following
+fastify.get(
+  "/profile",
+  {
+    schema: {
+      body: {
+        type: "object",
+        properties: {
+          user: {
+            $ref: "shared-schema#/definitions/user",
+          },
+        },
+        required: ['user'],
+      },
+    } as const,
+  },
+  (req) => {
+    // givenName and familyName will be correctly typed as strings!
+    const { givenName, familyName } = req.body.user;
+  }
+);
+```
