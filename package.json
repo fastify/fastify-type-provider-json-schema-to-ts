@@ -34,7 +34,7 @@
     "directory": "types"
   },
   "devDependencies": {
-    "@types/node": "^18.0.0",
+    "@types/node": "^20.1.0",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
     "eslint": "^8.21.0",
