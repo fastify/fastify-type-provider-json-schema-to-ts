@@ -1,6 +1,12 @@
-# fastify-type-provider-json-schema-to-ts
+# @fastify/type-provider-json-schema-to-ts
 
 A Type Provider for json-schema-to-ts
+
+## Install
+
+```
+npm i @fastify/type-provider-json-schema-to-ts
+```
 
 ## Plugin definition
 
