@@ -8,17 +8,18 @@ A Type Provider for json-schema-to-ts
 npm i @fastify/type-provider-json-schema-to-ts
 ```
 
-## Plugin definition
+## Usage
 
-> **Note**
-> When using plugin types, withTypeProvider is not required in order to register the plugin
 
 ```ts
-const plugin: FastifyPluginAsyncJsonSchemaToTs = async function (
+import { FastifyPluginAsync } from 'fastify'
+
+const plugin: FastifyPluginAsync = async function (
   fastify,
   _opts
 ) {
-  fastify.get(
+  const app = fastify.withTypeProvider<JsonSchemaToTsProvider>()
+  app.get(
     "/",
     {
       schema: {
@@ -36,6 +37,7 @@ const plugin: FastifyPluginAsyncJsonSchemaToTs = async function (
     (req) => {
       /// The `x`, `y`, and `z` types are automatically inferred
       const { x, y, z } = req.body;
+      return { x, y, z }
     }
   );
 };
