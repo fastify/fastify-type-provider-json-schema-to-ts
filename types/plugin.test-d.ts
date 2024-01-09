@@ -1,9 +1,10 @@
-import {
+import type {
   FastifyPluginAsyncJsonSchemaToTs,
-  FastifyPluginCallbackJsonSchemaToTs
+  FastifyPluginCallbackJsonSchemaToTs,
+  JsonSchemaToTsProvider
 } from '../index'
 import { expectType } from 'tsd'
-import Fastify, { FastifyPluginAsync, FastifyPluginCallback } from 'fastify'
+import Fastify, { FastifyPluginAsync, FastifyPluginCallback, RawServerDefault } from 'fastify'
 
 import { Http2Server } from 'http2'
 
@@ -21,31 +22,32 @@ export const pluginAsyncDefaults: FastifyPluginAsync = async (
 }
 
 // Ensure the defaults of FastifyPluginCallbackJsonSchemaToTs are the same as FastifyPluginCallback
-export const pluginCallbackDefaults: FastifyPluginCallback = async (
+export const pluginCallbackDefaults: FastifyPluginCallback = (
   fastify,
   options,
   done
 ) => {
   const pluginCallbackJSONSchemaToTsDefaults: FastifyPluginCallbackJsonSchemaToTs =
-    async (
+    (
       fastifyWithJSONSchemaToTs,
       optionsJSONSchemaToTs,
       doneJSONSchemaToTs
     ) => {
       expectType<typeof fastifyWithJSONSchemaToTs['server']>(fastify.server)
       expectType<typeof optionsJSONSchemaToTs>(options)
+      doneJSONSchemaToTs()
     }
 
   fastify.register(pluginCallbackJSONSchemaToTsDefaults)
+  done()
 }
-
 const asyncPlugin: FastifyPluginAsyncJsonSchemaToTs<
   { optionA: string },
   Http2Server
 > = async (fastify, options) => {
-  expectType<Http2Server>(fastify.server)
-
   expectType<string>(options.optionA)
+
+  expectType<Http2Server>(fastify.server)
 
   fastify.get(
     '/',

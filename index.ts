@@ -4,7 +4,8 @@ import {
   RawServerBase,
   RawServerDefault,
   FastifyPluginCallback,
-  FastifyPluginAsync
+  FastifyPluginAsync,
+  FastifyBaseLogger
 } from 'fastify'
 
 import { JSONSchema, FromSchema, FromSchemaOptions, FromSchemaDefaultOptions } from 'json-schema-to-ts'
@@ -27,8 +28,9 @@ export interface JsonSchemaToTsProvider<Options extends FromSchemaOptions = From
  */
 export type FastifyPluginCallbackJsonSchemaToTs<
   Options extends FastifyPluginOptions = Record<never, never>,
-  Server extends RawServerBase = RawServerDefault
-> = FastifyPluginCallback<Options, Server, JsonSchemaToTsProvider>;
+  Server extends RawServerBase = RawServerDefault,
+  Logger extends FastifyBaseLogger = FastifyBaseLogger
+> = FastifyPluginCallback<Options, Server, JsonSchemaToTsProvider, Logger>;
 
 /**
  * FastifyPluginAsync with JSON Schema to Typescript automatic type inference
@@ -43,5 +45,6 @@ export type FastifyPluginCallbackJsonSchemaToTs<
  */
 export type FastifyPluginAsyncJsonSchemaToTs<
   Options extends FastifyPluginOptions = Record<never, never>,
-  Server extends RawServerBase = RawServerDefault
-> = FastifyPluginAsync<Options, Server, JsonSchemaToTsProvider>;
+  Server extends RawServerBase = RawServerDefault,
+  Logger extends FastifyBaseLogger = FastifyBaseLogger
+> = FastifyPluginAsync<Options, Server, JsonSchemaToTsProvider, Logger>;

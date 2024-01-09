@@ -147,3 +147,5 @@ yarn.lock
 # editor files
 .vscode
 .idea
+
+types/*.js
