@@ -9,7 +9,7 @@
     "test": "npm run build && npm run typescript",
     "lint": "eslint \"**/*.ts\"",
     "lint:fix": "eslint \"**/*.ts\" --fix",
-    "typescript": "tsc --strict --noEmit types/**.ts && tsd",
+    "typescript": "tsc --strict --noEmit types/*.ts && tsd",
     "prepublishOnly": "npm run build"
   },
   "repository": {
