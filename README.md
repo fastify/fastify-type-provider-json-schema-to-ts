@@ -1,11 +1,28 @@
 # @fastify/type-provider-json-schema-to-ts
 
-A Type Provider for json-schema-to-ts
+A Type Provider for [json-schema-to-ts](https://github.com/ThomasAribart/json-schema-to-ts)
 
 ## Install
 
 ```
 npm i @fastify/type-provider-json-schema-to-ts
+```
+
+## TypeScript requirements
+
+It is required to use `TypeScript@4.3` or above with
+[`strict`](https://www.typescriptlang.org/tsconfig#strict)
+mode enabled and
+[`noStrictGenericChecks`](https://www.typescriptlang.org/tsconfig#noStrictGenericChecks)
+disabled. You may take the below configuration as an example.
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "noStrictGenericChecks": false
+  }
+}
 ```
 
 ## Plugin definition
