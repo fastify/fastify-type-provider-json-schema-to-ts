@@ -14,7 +14,8 @@ It is required to use `TypeScript@4.3` or above with
 [`strict`](https://www.typescriptlang.org/tsconfig#strict)
 mode enabled and
 [`noStrictGenericChecks`](https://www.typescriptlang.org/tsconfig#noStrictGenericChecks)
-disabled. You may take the below configuration as an example.
+disabled. You may take the below configuration (`tsconfig.json`)
+as an example.
 
 ```json
 {
