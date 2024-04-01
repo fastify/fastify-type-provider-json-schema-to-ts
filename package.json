@@ -44,7 +44,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "fastify-tsconfig": "^1.0.1",
     "rimraf": "^5.0.5",
-    "tsd": "^0.30.0",
+    "tsd": "^0.31.0",
     "typescript": "^5.0.2"
   }
 }
