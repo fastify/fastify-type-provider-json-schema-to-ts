@@ -7,7 +7,7 @@
   "scripts": {
     "build": "rimraf dist && mkdir dist && tsc --outDir dist",
     "test": "npm run build && npm run test:typescript",
-    "test:typescript": "tsc --strict --noEmit types/*.ts && tsd",
+    "test:typescript": "tsc --strict --noEmit && tsd",
     "lint": "eslint \"**/*.ts\"",
     "lint:fix": "eslint \"**/*.ts\" --fix",
     "prepublishOnly": "npm run build"
