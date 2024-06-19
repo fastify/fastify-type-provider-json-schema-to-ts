@@ -5,11 +5,11 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rimraf ./dist && mkdir dist && tsc --outDir dist",
-    "test": "npm run build && npm run typescript",
+    "build": "rimraf dist && mkdir dist && tsc --outDir dist",
+    "test": "npm run build && npm run test:typescript",
+    "test:typescript": "tsc --strict --noEmit && tsd",
     "lint": "eslint \"**/*.ts\"",
     "lint:fix": "eslint \"**/*.ts\" --fix",
-    "typescript": "tsc --strict --noEmit types/*.ts && tsd",
     "prepublishOnly": "npm run build"
   },
   "repository": {
@@ -26,25 +26,24 @@
     "url": "https://github.com/fastify/fastify-type-provider-json-schema-to-ts/issues"
   },
   "homepage": "https://github.com/fastify/fastify-type-provider-json-schema-to-ts#readme",
-  "peerDependencies": {
-    "fastify": "next",
-    "json-schema-to-ts": "^3.0.0"
-  },
   "tsd": {
     "directory": "types"
   },
   "devDependencies": {
-    "@types/node": "^20.1.0",
-    "@typescript-eslint/eslint-plugin": "^7.3.1",
-    "@typescript-eslint/parser": "^7.3.1",
-    "eslint": "^8.21.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^16.1.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "fastify-tsconfig": "^1.0.1",
-    "rimraf": "^5.0.5",
+    "@fastify/pre-commit": "^2.1.0",
+    "@types/node": "^20.14.2",
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/parser": "^7.13.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.2.0",
+    "fastify": "next",
+    "fastify-tsconfig": "^2.0.0",
+    "json-schema-to-ts": "^3.1.0",
+    "rimraf": "^5.0.7",
     "tsd": "^0.31.0",
-    "typescript": "^5.0.2"
+    "typescript": "^5.4.5"
   }
 }
