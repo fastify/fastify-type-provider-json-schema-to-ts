@@ -28,10 +28,11 @@ export interface JsonSchemaToTsProvider<Options extends FromSchemaOptions = From
  * ```
  */
 export type FastifyPluginCallbackJsonSchemaToTs<
+  SchemaOptions extends FromSchemaOptions = FromSchemaDefaultOptions,
   Options extends FastifyPluginOptions = Record<never, never>,
   Server extends RawServerBase = RawServerDefault,
   Logger extends FastifyBaseLogger = FastifyBaseLogger,
-> = FastifyPluginCallback<Options, Server, JsonSchemaToTsProvider, Logger>;
+> = FastifyPluginCallback<Options, Server, JsonSchemaToTsProvider<SchemaOptions>, Logger>;
 
 /**
  * FastifyPluginAsync with JSON Schema to Typescript automatic type inference
@@ -45,7 +46,8 @@ export type FastifyPluginCallbackJsonSchemaToTs<
  * ```
  */
 export type FastifyPluginAsyncJsonSchemaToTs<
+  SchemaOptions extends FromSchemaOptions = FromSchemaDefaultOptions,
   Options extends FastifyPluginOptions = Record<never, never>,
   Server extends RawServerBase = RawServerDefault,
   Logger extends FastifyBaseLogger = FastifyBaseLogger,
-> = FastifyPluginAsync<Options, Server, JsonSchemaToTsProvider, Logger>;
+> = FastifyPluginAsync<Options, Server, JsonSchemaToTsProvider<SchemaOptions>, Logger>;

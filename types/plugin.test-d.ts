@@ -42,6 +42,7 @@ export const pluginCallbackDefaults: FastifyPluginCallback = (
 }
 
 const asyncPlugin: FastifyPluginAsyncJsonSchemaToTs<
+  {},
   { optionA: string },
   Http2Server
 > = async (fastify, options) => {
@@ -73,6 +74,7 @@ const asyncPlugin: FastifyPluginAsyncJsonSchemaToTs<
 }
 
 const callbackPlugin: FastifyPluginCallbackJsonSchemaToTs<
+  {},
   { optionA: string },
   Http2Server
 > = (fastify, options, done) => {

@@ -111,3 +111,47 @@ fastify.get(
   }
 );
 ```
+
+## Using References from a Shared Schema in a plugin definition
+
+```ts
+const schemaPerson = {
+  $id: "schema:person",
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    givenName: { type: "string" },
+    familyName: { type: "string" },
+  },
+  required: ["givenName", "familyName"],
+} as const;
+
+// fastify.addSchema(schemaPerson)
+
+const plugin: FastifyPluginAsyncJsonSchemaToTs<{
+  references: [typeof schemaPerson]
+}> = async function (
+  fastify,
+  _opts
+) {
+  fastify.get(
+    "/profile",
+    {
+      schema: {
+        body: {
+          type: "object",
+          properties: {
+            user: {
+              $ref: "schema:person",
+            },
+          },
+          required: ['user'],
+        },
+      } as const,
+    },
+    (req) => {
+      // givenName and familyName will be correctly typed as strings!
+      const { givenName, familyName } = req.body.user;
+    }
+);
+```
