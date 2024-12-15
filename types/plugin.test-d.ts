@@ -5,7 +5,7 @@ import {
   FastifyPluginCallbackJsonSchemaToTs
 } from '../index'
 
-import { Http2Server } from 'http2'
+import { Http2Server } from 'node:http2'
 
 // Ensure the defaults of FastifyPluginAsyncJsonSchemaToTs are the same as FastifyPluginAsync
 export const pluginAsyncDefaults: FastifyPluginAsync = async (
