@@ -106,5 +106,5 @@ const callbackPlugin: FastifyPluginCallbackJsonSchemaToTs<
 
 const fastify = Fastify()
 
-fastify.register(asyncPlugin)
-fastify.register(callbackPlugin)
+fastify.register(asyncPlugin, { optionA: 'a' })
+fastify.register(callbackPlugin, { optionA: 'a' })
