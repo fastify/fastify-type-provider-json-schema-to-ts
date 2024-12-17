@@ -13,7 +13,7 @@ const addressSchema = {
   },
   required: ['line1', 'city']
 } as const
-type Address = FromSchema<typeof addressSchema>;
+type Address = FromSchema<typeof addressSchema>
 
 const userSchema = {
   type: 'object',
@@ -36,7 +36,7 @@ const sharedSchema = {
 
 type JsonSchemaToTsProviderWithSharedSchema = JsonSchemaToTsProvider<{
   references: [typeof sharedSchema];
-}>;
+}>
 const fastify = Fastify().withTypeProvider<JsonSchemaToTsProviderWithSharedSchema>()
 
 expectAssignable<FastifyInstance<RawServerDefault, RawRequestDefaultExpression, RawReplyDefaultExpression, FastifyLoggerInstance, JsonSchemaToTsProviderWithSharedSchema>>(fastify)
