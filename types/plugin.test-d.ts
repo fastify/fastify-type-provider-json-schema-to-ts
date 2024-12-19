@@ -7,6 +7,8 @@ import {
 
 import { Http2Server } from 'node:http2'
 
+import type { JSONSchema } from 'json-schema-to-ts'
+
 // Ensure the defaults of FastifyPluginAsyncJsonSchemaToTs are the same as FastifyPluginAsync
 export const pluginAsyncDefaults: FastifyPluginAsync = async (
   fastify,
@@ -41,10 +43,10 @@ export const pluginCallbackDefaults: FastifyPluginCallback = (
   done()
 }
 
-const asyncPlugin: FastifyPluginAsyncJsonSchemaToTs<
-  { optionA: string },
-  Http2Server
-> = async (fastify, options) => {
+const asyncPlugin: FastifyPluginAsyncJsonSchemaToTs<{
+  Options: { optionA: string },
+  Server: Http2Server
+}> = async (fastify, options) => {
   expectType<Http2Server>(fastify.server)
 
   expectType<string>(options.optionA)
@@ -61,7 +63,7 @@ const asyncPlugin: FastifyPluginAsyncJsonSchemaToTs<
             z: { type: 'boolean' }
           },
           required: ['x', 'y', 'z']
-        } as const
+        }
       }
     },
     (req) => {
@@ -72,10 +74,83 @@ const asyncPlugin: FastifyPluginAsyncJsonSchemaToTs<
   )
 }
 
-const callbackPlugin: FastifyPluginCallbackJsonSchemaToTs<
-  { optionA: string },
-  Http2Server
-> = (fastify, options, done) => {
+const userSchema = {
+  $id: 'UserSchema',
+  type: 'object',
+  properties: {
+    name: { type: 'string' },
+    age: { type: 'number' }
+  },
+  required: ['name', 'age']
+} as const satisfies JSONSchema
+
+const serializedUserSchema = {
+  $id: 'SerializedUserSchema',
+  type: 'object',
+  properties: {
+    name: { type: 'string' },
+    age: { type: 'number' },
+    registeredAt: { type: 'string', format: 'date-time' }
+  },
+  required: ['name', 'age', 'registeredAt']
+} as const satisfies JSONSchema
+
+const asyncPluginWithSchemaOptions: FastifyPluginAsyncJsonSchemaToTs<{
+  Options: { optionA: string },
+  ValidatorSchemaOptions: {
+    references: [typeof userSchema]
+  },
+  SerializerSchemaOptions: {
+    references: [typeof serializedUserSchema],
+    deserialize: [{ pattern: { type: 'string'; format: 'date-time' }; output: Date }]
+  }
+}> = async (fastify, options) => {
+  expectType<string>(options.optionA)
+
+  // Register schemas
+  fastify.addSchema(userSchema)
+  fastify.addSchema(serializedUserSchema)
+
+  fastify.get(
+    '/option',
+    {
+      schema: {
+        querystring: {
+          type: 'object',
+          properties: {
+            foo: {
+              type: 'boolean',
+              default: true
+            }
+          }
+        },
+        body: {
+          type: 'object',
+          $ref: 'UserSchema#'
+        },
+        response: {
+          200: { $ref: 'SerializedUserSchema#' }
+        }
+      }
+    },
+    async (req, reply) => {
+      expectType<boolean>(req.query.foo)
+      expectType<string>(req.body.name)
+      expectType<number>(req.body.age)
+
+      reply.send({
+        name: req.body.name,
+        age: req.body.age,
+        registeredAt: new Date()
+      })
+    }
+  )
+}
+
+const callbackPlugin: FastifyPluginCallbackJsonSchemaToTs<{
+  Options: { optionA: string },
+  Server: Http2Server
+}> = (fastify, options, done) => {
   expectType<Http2Server>(fastify.server)
 
   expectType<string>(options.optionA)
@@ -92,7 +167,7 @@ const callbackPlugin: FastifyPluginCallbackJsonSchemaToTs<
             z: { type: 'boolean' }
           },
           required: ['x', 'y', 'z']
-        } as const
+        }
       }
     },
     (req) => {
@@ -104,7 +179,50 @@ const callbackPlugin: FastifyPluginCallbackJsonSchemaToTs<
   done()
 }
 
+const callbackPluginWithSchemaOptions: FastifyPluginCallbackJsonSchemaToTs<{
+  Options: { optionA: string },
+  ValidatorSchemaOptions: {
+    references: [typeof userSchema]
+  },
+  SerializerSchemaOptions: {
+    references: [typeof serializedUserSchema],
+    deserialize: [{ pattern: { type: 'string'; format: 'date-time' }; output: Date }]
+  }
+}> = (fastify, options, done) => {
+  expectType<string>(options.optionA)
+
+  // Register schemas
+  fastify.addSchema(userSchema)
+  fastify.addSchema(serializedUserSchema)
+
+  fastify.get(
+    '/callback-option',
+    {
+      schema: {
+        body: { $ref: 'UserSchema#' },
+        response: {
+          200: { $ref: 'SerializedUserSchema#' }
+        }
+      }
+    },
+    (req, reply) => {
+      expectType<string>(req.body.name)
+      expectType<number>(req.body.age)
+
+      reply.send({
+        name: req.body.name,
+        age: req.body.age,
+        registeredAt: new Date()
+      })
+    }
+  )
+
+  done()
+}
+
 const fastify = Fastify()
 
 fastify.register(asyncPlugin, { optionA: 'a' })
+fastify.register(asyncPluginWithSchemaOptions, { optionA: 'a' })
 fastify.register(callbackPlugin, { optionA: 'a' })
+fastify.register(callbackPluginWithSchemaOptions, { optionA: 'a' })
