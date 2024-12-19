@@ -8,8 +8,8 @@
     "build": "rimraf dist && mkdir dist && tsc --outDir dist",
     "test": "npm run build && npm run test:typescript",
     "test:typescript": "tsc --strict --noEmit && tsd",
-    "lint": "eslint \"**/*.ts\"",
-    "lint:fix": "eslint \"**/*.ts\" --fix",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "prepublishOnly": "npm run build"
   },
   "repository": {
@@ -35,15 +35,10 @@
   "devDependencies": {
     "@fastify/pre-commit": "^2.1.0",
     "@types/node": "^20.14.2",
-    "@typescript-eslint/eslint-plugin": "^7.13.0",
-    "@typescript-eslint/parser": "^7.13.0",
-    "eslint": "^8.57.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-promise": "^6.2.0",
+    "eslint": "^9.17.0",
     "fastify": "^5.0.0",
     "fastify-tsconfig": "^2.0.0",
+    "neostandard": "^0.12.0",
     "rimraf": "^5.0.7",
     "tsd": "^0.31.0",
     "typescript": "~5.4.5"

@@ -1,5 +1,9 @@
 # @fastify/type-provider-json-schema-to-ts
 
+[![CI](https://github.com/fastify/fastify-type-provider-json-schema-to-ts/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/fastify/fastify-type-provider-json-schema-to-ts/actions/workflows/ci.yml)
+[![NPM version](https://img.shields.io/npm/v/@fastify/type-provider-json-schema-to-ts.svg?style=flat)](https://www.npmjs.com/package/@fastify/type-provider-json-schema-to-ts)
+[![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-brightgreen?style=flat)](https://github.com/neostandard/neostandard)
+
 A Type Provider for [json-schema-to-ts](https://github.com/ThomasAribart/json-schema-to-ts)
 
 ## Install
