@@ -26,6 +26,7 @@ const userSchema = {
 } as const
 type User = FromSchema<typeof userSchema>
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const sharedSchema = {
   $id: 'shared-schema',
   definitions: {
