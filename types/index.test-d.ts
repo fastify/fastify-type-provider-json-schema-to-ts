@@ -16,7 +16,7 @@ fastify.get('/', {
         z: { type: 'boolean' }
       },
       required: ['x', 'y', 'z']
-    } as const
+    }
   }
 }, (req) => {
   expectType<boolean>(req.body.z)
