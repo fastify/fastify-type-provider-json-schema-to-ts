@@ -107,14 +107,6 @@ type UserProfile = FromSchema<typeof userProfileSchema, {
 // Use JsonSchemaToTsProvider with shared schema references
 const fastify = Fastify().withTypeProvider<
   JsonSchemaToTsProvider<{
-    ValidatorSchemaOptions: {
-      references: [typeof sharedSchema]
-    }
-  }>
->();
-
-const fastify = Fastify().withTypeProvider<
-  JsonSchemaToTsProvider<{
     ValidatorSchemaOptions: { references: [typeof sharedSchema] }
     SerializerSchemaOptions: {
       references: [typeof userProfileSchema]
