@@ -253,3 +253,7 @@ const callbackPlugin: FastifyPluginCallbackJsonSchemaToTs<{
   done()
 };
 ```
+
+## License
+
+Licensed under [MIT](./LICENSE).
