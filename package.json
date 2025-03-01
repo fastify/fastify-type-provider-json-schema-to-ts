@@ -70,6 +70,6 @@
     "neostandard": "^0.12.0",
     "rimraf": "^6.0.1",
     "tsd": "^0.31.0",
-    "typescript": "~5.7.2"
+    "typescript": "~5.8.2"
   }
 }
