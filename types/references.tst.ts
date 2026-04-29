@@ -1,5 +1,5 @@
 import { JsonSchemaToTsProvider } from '../index'
-import { expectAssignable, expectType } from 'tsd'
+import { expect } from 'tstyche'
 import Fastify, { FastifyInstance, FastifyBaseLogger, RawReplyDefaultExpression, RawRequestDefaultExpression, RawServerDefault } from 'fastify'
 import { FromSchema } from 'json-schema-to-ts'
 
@@ -65,7 +65,15 @@ type JsonSchemaToTsProviderWithSharedSchema = JsonSchemaToTsProvider<{
 
 const fastify = Fastify().withTypeProvider<JsonSchemaToTsProviderWithSharedSchema>()
 
-expectAssignable<FastifyInstance<RawServerDefault, RawRequestDefaultExpression, RawReplyDefaultExpression, FastifyBaseLogger, JsonSchemaToTsProviderWithSharedSchema>>(fastify)
+expect(fastify).type.toBeAssignableTo<
+  FastifyInstance<
+    RawServerDefault,
+    RawRequestDefaultExpression,
+    RawReplyDefaultExpression,
+    FastifyBaseLogger,
+    JsonSchemaToTsProviderWithSharedSchema
+  >
+>()
 
 // Register schemas
 fastify.addSchema(sharedSchema)
@@ -84,8 +92,8 @@ fastify.get('/profile', {
     }
   }
 }, (req) => {
-  expectType<User>(req.body.user)
-  expectType<Address>(req.body.address)
+  expect(req.body.user).type.toBe<User>()
+  expect(req.body.address).type.toBe<Address>()
 })
 
 // Test serialization and validation schemas
@@ -105,8 +113,8 @@ fastify.get('/profile-serialized', {
   }
 }, (req, reply) => {
   // Ensure type correctness for request body
-  expectType<User>(req.body.user)
-  expectType<Address>(req.body.address)
+  expect(req.body.user).type.toBe<User>()
+  expect(req.body.address).type.toBe<Address>()
 
   // Create response
   const profile: UserProfile = {
@@ -123,7 +131,8 @@ fastify.get('/profile-serialized', {
   }
 
   // Ensure type correctness for response
-  expectType<UserProfile>(profile)
-  expectType<Date>(profile.joinedAt) // Ensure joinedAt is typed as Date
+  expect(profile).type.toBe<UserProfile>()
+  expect(profile.joinedAt).type.toBe<Date>() // Ensure joinedAt is typed as Date
+
   reply.send(profile)
 })
