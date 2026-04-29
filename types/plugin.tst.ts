@@ -1,5 +1,5 @@
 import Fastify, { FastifyPluginAsync, FastifyPluginCallback } from 'fastify'
-import { expectType } from 'tsd'
+import { expect } from 'tstyche'
 import {
   FastifyPluginAsyncJsonSchemaToTs,
   FastifyPluginCallbackJsonSchemaToTs
@@ -16,8 +16,8 @@ export const pluginAsyncDefaults: FastifyPluginAsync = async (
 ) => {
   const pluginAsyncJSONSchemaToTsDefaults: FastifyPluginAsyncJsonSchemaToTs =
     async (fastifyWithJSONSchemaToTs, optionsJSONSchemaToTs) => {
-      expectType<typeof fastifyWithJSONSchemaToTs['server']>(fastify.server)
-      expectType<typeof optionsJSONSchemaToTs>(options)
+      expect(fastifyWithJSONSchemaToTs.server).type.toBe<typeof fastify.server>()
+      expect(optionsJSONSchemaToTs).type.toBe<typeof options>()
     }
   fastify.register(pluginAsyncJSONSchemaToTsDefaults)
 }
@@ -34,8 +34,8 @@ export const pluginCallbackDefaults: FastifyPluginCallback = (
       optionsJSONSchemaToTs,
       doneJSONSchemaToTs
     ) => {
-      expectType<typeof fastifyWithJSONSchemaToTs['server']>(fastify.server)
-      expectType<typeof optionsJSONSchemaToTs>(options)
+      expect(fastifyWithJSONSchemaToTs.server).type.toBe<typeof fastify.server>()
+      expect(optionsJSONSchemaToTs).type.toBe<typeof options>()
       doneJSONSchemaToTs()
     }
 
@@ -47,9 +47,8 @@ const asyncPlugin: FastifyPluginAsyncJsonSchemaToTs<{
   Options: { optionA: string },
   Server: Http2Server
 }> = async (fastify, options) => {
-  expectType<Http2Server>(fastify.server)
-
-  expectType<string>(options.optionA)
+  expect(fastify.server).type.toBe<Http2Server>()
+  expect(options.optionA).type.toBe<string>()
 
   fastify.get(
     '/',
@@ -67,9 +66,9 @@ const asyncPlugin: FastifyPluginAsyncJsonSchemaToTs<{
       }
     },
     (req) => {
-      expectType<boolean>(req.body.z)
-      expectType<number>(req.body.y)
-      expectType<string>(req.body.x)
+      expect(req.body.z).type.toBe<boolean>()
+      expect(req.body.y).type.toBe<number>()
+      expect(req.body.x).type.toBe<string>()
     }
   )
 }
@@ -105,7 +104,7 @@ const asyncPluginWithSchemaOptions: FastifyPluginAsyncJsonSchemaToTs<{
     deserialize: [{ pattern: { type: 'string'; format: 'date-time' }; output: Date }]
   }
 }> = async (fastify, options) => {
-  expectType<string>(options.optionA)
+  expect(options.optionA).type.toBe<string>()
 
   // Register schemas
   fastify.addSchema(userSchema)
@@ -134,9 +133,9 @@ const asyncPluginWithSchemaOptions: FastifyPluginAsyncJsonSchemaToTs<{
       }
     },
     async (req, reply) => {
-      expectType<boolean>(req.query.foo)
-      expectType<string>(req.body.name)
-      expectType<number>(req.body.age)
+      expect(req.query.foo).type.toBe<boolean>()
+      expect(req.body.name).type.toBe<string>()
+      expect(req.body.age).type.toBe<number>()
 
       reply.send({
         name: req.body.name,
@@ -151,9 +150,8 @@ const callbackPlugin: FastifyPluginCallbackJsonSchemaToTs<{
   Options: { optionA: string },
   Server: Http2Server
 }> = (fastify, options, done) => {
-  expectType<Http2Server>(fastify.server)
-
-  expectType<string>(options.optionA)
+  expect(fastify.server).type.toBe<Http2Server>()
+  expect(options.optionA).type.toBe<string>()
 
   fastify.get(
     '/',
@@ -171,9 +169,9 @@ const callbackPlugin: FastifyPluginCallbackJsonSchemaToTs<{
       }
     },
     (req) => {
-      expectType<boolean>(req.body.z)
-      expectType<number>(req.body.y)
-      expectType<string>(req.body.x)
+      expect(req.body.z).type.toBe<boolean>()
+      expect(req.body.y).type.toBe<number>()
+      expect(req.body.x).type.toBe<string>()
     }
   )
   done()
@@ -189,7 +187,7 @@ const callbackPluginWithSchemaOptions: FastifyPluginCallbackJsonSchemaToTs<{
     deserialize: [{ pattern: { type: 'string'; format: 'date-time' }; output: Date }]
   }
 }> = (fastify, options, done) => {
-  expectType<string>(options.optionA)
+  expect(options.optionA).type.toBe<string>()
 
   // Register schemas
   fastify.addSchema(userSchema)
@@ -206,8 +204,8 @@ const callbackPluginWithSchemaOptions: FastifyPluginCallbackJsonSchemaToTs<{
       }
     },
     (req, reply) => {
-      expectType<string>(req.body.name)
-      expectType<number>(req.body.age)
+      expect(req.body.name).type.toBe<string>()
+      expect(req.body.age).type.toBe<number>()
 
       reply.send({
         name: req.body.name,

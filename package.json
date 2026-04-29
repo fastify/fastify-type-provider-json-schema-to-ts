@@ -6,8 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rimraf dist && mkdir dist && tsc --outDir dist",
-    "test": "npm run build && npm run test:typescript",
-    "test:typescript": "tsc --strict --noEmit && tsd",
+    "test": "npm run test:typescript",
+    "test:typescript": "tsc --strict --noEmit && tstyche",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "prepublishOnly": "npm run build"
@@ -68,7 +68,7 @@
     "fastify-tsconfig": "^3.0.0",
     "neostandard": "^0.13.0",
     "rimraf": "^6.0.1",
-    "tsd": "^0.33.0",
+    "tstyche": "^7.0.0",
     "typescript": "~6.0.2"
   }
 }
