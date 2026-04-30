@@ -3,5 +3,5 @@
   "compilerOptions": {
     "declaration": true
   },
-  "exclude": ["node_modules/", "types/**/*.test-d.ts"]
+  "exclude": ["node_modules/", "types/**/*.tst.ts"]
 }
