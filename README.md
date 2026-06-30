@@ -15,9 +15,9 @@ npm i @fastify/type-provider-json-schema-to-ts
 ## TypeScript requirements
 
 It is required to use `TypeScript@4.3` or above with
-[`strict`](https://www.typescriptlang.org/tsconfig#strict)
+[`strict`](https://www.typescriptlang.org/tsconfig/#strict)
 mode enabled and
-[`noStrictGenericChecks`](https://www.typescriptlang.org/tsconfig#noStrictGenericChecks)
+[`noStrictGenericChecks`](https://www.typescriptlang.org/tsconfig/#noStrictGenericChecks)
 disabled. You may take the following configuration (`tsconfig.json`) as an example:
 
 ```json
