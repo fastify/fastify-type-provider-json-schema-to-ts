@@ -1,5 +1,6 @@
 import { JsonSchemaToTsProvider } from '../index'
 import { expect } from 'tstyche'
+import { Type } from '@sinclair/typebox'
 import Fastify, {
   FastifyInstance,
   FastifyBaseLogger,
@@ -37,4 +38,28 @@ fastify.get('/', {
   expect(req.body.z).type.toBe<boolean>()
   expect(req.body.y).type.toBe<number>()
   expect(req.body.x).type.toBe<string>()
+})
+
+fastify.post('/typebox-unknown', {
+  schema: {
+    body: Type.Object({
+      known: Type.String(),
+      loose: Type.Unknown()
+    })
+  }
+}, (req) => {
+  expect(req.body.known).type.toBe<string>()
+  expect(req.body.loose).type.toBe<unknown>()
+})
+
+fastify.post('/typebox-any', {
+  schema: {
+    body: Type.Object({
+      known: Type.String(),
+      loose: Type.Any()
+    })
+  }
+}, (req) => {
+  expect(req.body.known).type.toBe<string>()
+  expect(req.body.loose).type.toBe<unknown>()
 })
