@@ -15,25 +15,32 @@ export interface JsonSchemaToTsProviderOptions {
   SerializerSchemaOptions?: FromSchemaOptions;
 }
 
+type NormalizeSchema<Schema> = Schema extends JSONSchema
+  ? Schema
+  : Schema extends {
+      type: 'object';
+      properties: infer Properties extends Record<string, unknown>;
+    }
+    ? {
+        type: 'object';
+        properties: { [Key in keyof Properties]: NormalizeSchema<Properties[Key]> };
+        required: (keyof Properties & string)[];
+      }
+    : Schema
+
+type FromNormalizedSchema<Schema, Options extends FromSchemaOptions> = NormalizeSchema<Schema> extends infer Normalized
+  ? Normalized extends JSONSchema ? FromSchema<Normalized, Options> : unknown
+  : unknown
+
 export interface JsonSchemaToTsProvider<
   Options extends JsonSchemaToTsProviderOptions = {}
 > extends FastifyTypeProvider {
-  validator: this['schema'] extends JSONSchema
-    ? FromSchema<
-        this['schema'],
-        Options['ValidatorSchemaOptions'] extends FromSchemaOptions
-          ? Options['ValidatorSchemaOptions']
-          : FromSchemaDefaultOptions
-      >
-    : unknown;
-  serializer: this['schema'] extends JSONSchema
-    ? FromSchema<
-        this['schema'],
-        Options['SerializerSchemaOptions'] extends FromSchemaOptions
-          ? Options['SerializerSchemaOptions']
-          : FromSchemaDefaultOptions
-      >
-    : unknown;
+  validator: FromNormalizedSchema<this['schema'], Options['ValidatorSchemaOptions'] extends FromSchemaOptions
+    ? Options['ValidatorSchemaOptions']
+    : FromSchemaDefaultOptions>;
+  serializer: FromNormalizedSchema<this['schema'], Options['SerializerSchemaOptions'] extends FromSchemaOptions
+    ? Options['SerializerSchemaOptions']
+    : FromSchemaDefaultOptions>;
 }
 
 export interface FastifyPluginJsonSchemaToTsOptions extends JsonSchemaToTsProviderOptions {
